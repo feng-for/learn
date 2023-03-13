@@ -1,0 +1,28 @@
+// 使用proto3语法
+syntax = "proto3";
+// 生成多个文件
+option java_multiple_files = false;
+// 生成java类所在的包
+option java_package = "com.proto";
+// 生成外层类类名
+option java_outer_classname = "NewsProto";
+// .proto包名（逻辑包名）
+package news;
+// 定义RPC服务RouteGuide
+service NewsService {
+  rpc list(NewsRequest) returns (NewsResponse) {}
+}
+message NewsRequest {
+  string date = 1;
+}
+message NewsResponse {
+  // repeated定义一个集合（数组）
+  repeated News news = 1;
+}
+// 定义News实体
+message News {
+  int32 id = 1;
+  string title = 2;
+  string  content = 3;
+  int64  createTime = 4;
+}

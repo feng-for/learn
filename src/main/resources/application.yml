@@ -1,0 +1,10 @@
+#mybatis-plus:
+#  mapper-locations: mapper/*.xml
+#  type-aliases-package: com.gupaoedu.vip.mall.*.model
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+age: 18
+sex: 女
+name: 雏田
