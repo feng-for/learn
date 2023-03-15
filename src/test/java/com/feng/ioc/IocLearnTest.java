@@ -1,18 +1,11 @@
 package com.feng.ioc;
 
-import com.annotation.AnnotationConfig;
-import com.annotation.value.DataDemo;
-import com.annotation.value.ValueDemo;
+import com.zhiwei.annotation.AnnotationConfig;
+import com.zhiwei.annotation.value.DataDemo;
+import com.zhiwei.annotation.value.ValueDemo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @ClassName: IocLearnTest

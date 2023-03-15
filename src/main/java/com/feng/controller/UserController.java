@@ -1,9 +1,7 @@
 package com.feng.controller;
 
-import com.annotation.value.User;
-import com.annotation.value.ValueDemo;
+import com.zhiwei.annotation.value.ValueDemo;
 import com.feng.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

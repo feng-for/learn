@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
  **/
 @SpringBootApplication
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = {"com.feng", "com.gupaoedu.vip", "com.jack", "com.annotation"})
+@ComponentScan(basePackages = {"com.feng", "com.gupaoedu", "com.zhiwei"})
 public class LearningApplication implements ApplicationRunner {
 
     public static void main(String[] args) {

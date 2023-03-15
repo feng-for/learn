@@ -1,14 +1,14 @@
 org.springframework.context.ApplicationContextInitializer=\
-  com.gupaoedu.vip.listenner.StarterApplicationContextInitializer, \
-  com.jack.initilizer.JackApplicationContextInitializer
+  listenner.com.gupaoedu.StarterApplicationContextInitializer, \
+  com.zhiwei.initilizer.JackApplicationContextInitializer
 
 org.springframework.context.ApplicationListener=\
-  com.gupaoedu.vip.listenner.StarterApplicationListener, \
-  com.gupaoedu.vip.listenner.WebApplicationListener, \
-  com.gupaoedu.vip.listenner.StartingApplicationListener, \
-  com.gupaoedu.vip.listenner.MyPropertySourceListener, \
-  com.jack.listener.JackApplicationListener
+  listenner.com.gupaoedu.StarterApplicationListener, \
+  listenner.com.gupaoedu.WebApplicationListener, \
+  listenner.com.gupaoedu.StartingApplicationListener, \
+  listenner.com.gupaoedu.MyPropertySourceListener, \
+  com.zhiwei.listener.JackApplicationListener
 
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.gupaoedu.vip.redisson.RedissonAutoConfiguration,\
-  com.gupaoedu.vip.redisson.GirlAutoConfiguration
+  redisson.com.gupaoedu.RedissonAutoConfiguration,\
+  redisson.com.gupaoedu.GirlAutoConfiguration
