@@ -1,6 +1,5 @@
 package com.feng.service.impl;
 
-import com.feng.pattern.TemplatePattern;
 import com.feng.service.UserService;
 import org.springframework.stereotype.Service;
 

@@ -7,7 +7,7 @@ org.springframework.context.ApplicationListener=\
   listenner.com.gupaoedu.WebApplicationListener, \
   listenner.com.gupaoedu.StartingApplicationListener, \
   listenner.com.gupaoedu.MyPropertySourceListener, \
-  com.zhiwei.listener.JackApplicationListener
+  com.gupaoedu.listenner.JackApplicationListener
 
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   redisson.com.gupaoedu.RedissonAutoConfiguration,\

@@ -1,6 +1,6 @@
 package com.feng.service;
 
-import com.feng.pattern.TemplatePattern;
+import com.zhiwei.pattern.TemplatePattern;
 
 /**
  * @ClassName: UserSerivce

@@ -3,6 +3,8 @@ package com.feng.ioc;
 import com.zhiwei.annotation.AnnotationConfig;
 import com.zhiwei.annotation.value.DataDemo;
 import com.zhiwei.annotation.value.ValueDemo;
+import com.zhiwei.config.ioc.ConfigurationIoc;
+import com.zhiwei.config.ioc.IocLearn;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

@@ -1,6 +1,6 @@
 package com.zhiwei.config;
 
-import com.zhiwei.domain.Person;
+import com.feng.domain.Person;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
