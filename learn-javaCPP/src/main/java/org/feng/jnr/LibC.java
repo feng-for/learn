@@ -3,11 +3,7 @@ package org.feng.jnr;
 import jnr.ffi.annotations.In;
 
 public interface LibC {
-    int setenv(@In String name, @In String value, @In boolean overwrite);
+    int puts(String s); // mapping of the puts function, in C `int puts(const char *s);`
 
-    int unsetenv(@In String name);
-
-    String getenv(@In String name);
-
-    int clearenv();
+    double pow(double x, double y);
 }

@@ -15,8 +15,6 @@ public class JNRTest {
 
     public static void main(String[] args) {
 
-        System.loadLibrary("jffi-1.2");
-
         // System.out.println(posix.getcwd());
         // posix.chdir("..");
         // System.out.println(posix.getcwd());
@@ -34,21 +32,7 @@ public class JNRTest {
                 libName
         );
 
-        final String pwdKey = "PWD"; // key for working directory
-        final String shellKey = "SHELL"; // key for system shell (bash, zsh etc)
-
-        String pwd = libc.getenv(pwdKey);
-        System.out.println(pwd); // prints current directory
-
-        libc.setenv(pwdKey, "/", true); // set PWD to /
-        System.out.println(libc.getenv(pwdKey)); // prints /
-
-        libc.unsetenv(pwdKey); // unset PWD
-        System.out.println(libc.getenv(pwdKey)); // prints null (it is null not the String "null")
-
-        System.out.println(libc.getenv(shellKey)); // prints system shell, /bin/bash on most Unixes
-        libc.clearenv(); // clear all environment variables
-        System.out.println(libc.getenv(shellKey)); // prints null (it is null not the String "null")
-        System.out.println(libc.getenv("_")); // even the special "_" environment variable is now null
+        libc.puts("Hello World!"); // prints "Hello World!" to console
+        System.out.println(libc.pow(2.0, 2.0));
     }
 }
