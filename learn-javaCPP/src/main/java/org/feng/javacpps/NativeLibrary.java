@@ -3,26 +3,23 @@ package org.feng.javacpps;
 import org.bytedeco.javacpp.*;
 import org.bytedeco.javacpp.annotation.*;
 
-@Platform(include="NativeLibrary.h")
+@Platform(include="NativeLibrary.h",link="MyFunc")
 @Namespace("NativeLibrary")
 public class NativeLibrary {
-    public static class NativeClass extends Pointer {
-        static { Loader.load(); }
-        public NativeClass() { allocate(); }
+    public static class MyFunc extends Pointer {
+        static {
+            Loader.load();
+        }
+        public MyFunc() { allocate(); }
         private native void allocate();
 
-        // to call the getter and setter functions 
-        public native @StdString String get_property(); public native void set_property(String property);
-
-        // to access the member variable directly
-        public native @StdString String property();     public native void property(String property);
+        // to call add functions
+        public native int add(int a, int b);
     }
 
     public static void main(String[] args) {
-        // Pointer objects allocated in Java get deallocated once they become unreachable,
-        // but C++ destructors can still be called in a timely fashion with Pointer.deallocate()
-        NativeClass l = new NativeClass();
-        l.set_property("Hello World!");
-        System.out.println(l.property());
+        System.out.println(System.getProperty("java.library.path"));
+        MyFunc myFunc = new MyFunc();
+        System.out.println(myFunc.add(111,222));
     }
 }
