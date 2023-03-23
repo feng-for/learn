@@ -2,7 +2,6 @@ package org.feng.javacpps;
 
 import org.bytedeco.javacpp.Loader;
 import org.bytedeco.javacpp.annotation.Name;
-import org.bytedeco.javacpp.annotation.Namespace;
 import org.bytedeco.javacpp.annotation.NoException;
 import org.bytedeco.javacpp.annotation.Platform;
 
