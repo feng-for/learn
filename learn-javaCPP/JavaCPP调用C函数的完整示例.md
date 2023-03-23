@@ -1,4 +1,5 @@
 # JavaCPP调用C函数的完整示例
+## 环境最要命，所有一切的症结都在C环境，编译器版本，一定要用C的编译器运行
 假设有一个C函数，位于header.h文件中：
 ```mermaid C
 #ifndef HEADER_H
@@ -82,3 +83,12 @@ clean:
 
 要在Windows上编译链接库，可以使用Visual Studio或MinGW等开发工具。安装MinGW开发环境，并确保将安装目录添加到系统PATH环境变量中。
 > gcc -fPIC -shared add.c -o example.dll
+
+**运行命令**
+> javac -cp javacpp.jar ExampleLibrary.java
+> 
+> java -jar javacpp.jar ExampleLibrary
+> 
+> java -cp javacpp.jar ExampleLibrary
+
+javacpp.jar需要自行下载。
