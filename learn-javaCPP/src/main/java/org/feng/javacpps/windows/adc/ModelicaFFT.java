@@ -1,31 +1,29 @@
 package org.feng.javacpps.windows.adc;
 
+import org.bytedeco.javacpp.DoublePointer;
 import org.bytedeco.javacpp.Loader;
-import org.bytedeco.javacpp.Pointer;
-import org.bytedeco.javacpp.annotation.Namespace;
 import org.bytedeco.javacpp.annotation.Platform;
-import org.bytedeco.javacpp.annotation.StdString;
 
 @Platform(include="ModelicaFFT.h")
-@Namespace("ModelicaFFT")
 public class ModelicaFFT {
-    public static class NativeClass extends Pointer {
-        static { Loader.load(); }
-        public NativeClass() { allocate(); }
-        private native void allocate();
 
-        // to call the getter and setter functions
-        public native @StdString String get_property(); public native void set_property(String property);
+    static { System.setProperty("org.bytedeco.javacpp.logger.debug", "true"); Loader.load(); }
 
-        // to access the member variable directly
-        public native @StdString String property();     public native void property(String property);
-    }
+    public native int ModelicaFFT_kiss_fftr(DoublePointer u, long nu, DoublePointer work, long nwork, DoublePointer amplitudes, DoublePointer phases);
 
     public static void main(String[] args) {
-        // Pointer objects allocated in Java get deallocated once they become unreachable,
-        // but C++ destructors can still be called in a timely fashion with Pointer.deallocate()
-        NativeClass l = new NativeClass();
-        l.set_property("Hello World!!!");
-        System.out.println(l.property());
+        ModelicaFFT modelicaFFT = new ModelicaFFT();
+        double[] u = new double[] {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0};
+
+        double[] work = new double[8];
+
+        double[] amplitudes = new double[5];
+        double[] phases = new double[5];
+
+        int result = modelicaFFT.ModelicaFFT_kiss_fftr(
+                new DoublePointer(u), u.length, new DoublePointer(work), work.length, new DoublePointer(amplitudes), new DoublePointer(phases)
+        );
+
+        System.out.println("Result: " + result);
     }
 }

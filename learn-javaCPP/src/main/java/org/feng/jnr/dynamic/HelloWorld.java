@@ -4,14 +4,8 @@ import jnr.ffi.LibraryLoader;
 import jnr.ffi.Memory;
 import jnr.ffi.Pointer;
 import jnr.ffi.Runtime;
-import jnr.ffi.Type;
 
 public class HelloWorld {
-
-    // static {
-    //     System.loadLibrary("snprintf");
-    //     System.loadLibrary("ModelicaStandardTablesUsertab");
-    // }
 
     // 定义动态链接库中的导出函数
     public interface MyLibrary {
@@ -25,7 +19,6 @@ public class HelloWorld {
         libc.puts("Hello World!"); // prints "Hello World!" to console
         System.out.println(libc.pow(2.0, 2.0));
 
-        // System.load("C:\\Users\\Fengzhiwei\\.jdks\\corretto-11.0.18\\bin\\libzlib.a");
         MyLibrary lib = LibraryLoader.create(MyLibrary.class).load("ModelicaFFT");
         // 准备输入数组
         double[] u = new double[] {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0};

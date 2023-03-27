@@ -9,7 +9,7 @@ int add(int a, int b);
 
 #endif
 ```
-下面是一个C文件，实现了这个函数：
+下面是一个C文件header.c，实现了这个函数：
 ```mermaid C
 #include "header.h"
 
@@ -17,41 +17,45 @@ int add(int a, int b) {
     return a + b;
 }
 ```
+编译动态链接库
+> gcc -fPIC -shared header.c -o header.dll
+
+将`header.dll`移动到`java.library.path`下，可以使用`System.getProperty("java.library.path");`查看
+
 使用javacpp可以直接调用这个C函数，无需任何Java本地接口（JNI）代码。
 首先需要在pom.xml（或build.gradle等项目构建文件中）添加以下依赖项:
 ```mermaid xml
 <dependency>
-  <groupId>org.bytedeco</groupId>
-  <artifactId>javacpp</artifactId>
-  <version>1.5.4</version>
+    <groupId>com.github.jnr</groupId>
+    <artifactId>jnr-ffi</artifactId>
+    <version>2.2.13</version>
 </dependency>
 ```
 然后创建一个Java类，用于包装C函数。假设C函数位于库文件中libexample.dll，可以像这样定义Java类：
 ```mermaid java
-import org.bytedeco.javacpp.*;
+import jnr.ffi.LibraryLoader;
 
-@Platform(include="header.h", linker={"example"})
 public class ExampleLibrary {
-    static {
-        Loader.load();
-    }
+    public interface LibC {
 
-    public static native int add(int a, int b);
+        int add(int a, int b);
+    }
 }
 ```
 这个类使用了`@Platform`注释来指定包含C函数的头文件和链接库文件。在静态代码块中，使用`Loader.load()`加载链接库文件。
 在Java代码中，可以直接调用C函数：
 ```mermaid java
 public static void main(String[] args) {
-    int a = 2;
-    int b = 3;
-    int c = ExampleLibrary.add(a, b);
-    System.out.println(c); // Output: 5
+    LibC libc = LibraryLoader.create(LibC.class).load("header"); // load the "c" library into the libc variable
+    System.out.println(libc.add(2, 2));
 }
 ```
 这个示例展示了如何在Java中使用javacpp调用C函数。注意，需要确保链接库文件的路径已经设置正确，并且链接库文件已经编译为与Java平台相匹配的本机代码。
 
-**编译动态链接库**
+**示例代码**
+[HelloWorld.java](src%2Ftest%2Fjava%2FHelloWorld.java)
+
+# 编译动态链接库
 
 要编译C或C++链接库，通常需要执行以下步骤：
 1. 编写C或C++源代码文件和头文件。
@@ -91,9 +95,9 @@ clean:
 
 **运行命令**
 > javac -cp javacpp.jar ExampleLibrary.java
-> 
+>
 > java -jar javacpp.jar ExampleLibrary
-> 
+>
 > java -cp javacpp.jar ExampleLibrary
 
 javacpp.jar需要自行下载。

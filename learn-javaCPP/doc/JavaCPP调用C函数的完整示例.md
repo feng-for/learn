@@ -36,16 +36,14 @@ public class NativeLibrary {
         public NativeClass() { allocate(); }
         private native void allocate();
 
-        // to call the getter and setter functions 
+        // 调用getter和setter函数
         public native @StdString String get_property(); public native void set_property(String property);
 
-        // to access the member variable directly
+        // 直接访问成员变量
         public native @StdString String property();     public native void property(String property);
     }
 
     public static void main(String[] args) {
-        // Pointer objects allocated in Java get deallocated once they become unreachable,
-        // but C++ destructors can still be called in a timely fashion with Pointer.deallocate()
         NativeClass l = new NativeClass();
         l.set_property("Hello World!");
         System.out.println(l.property());
@@ -54,6 +52,11 @@ public class NativeLibrary {
 ```
 我们需要在执行它之前使用JavaCPP进行构建，我们可以让它像下面这样做:
 ```bash
-$ java -jar javacpp.jar NativeLibrary.java -exec
+$ java -jar javacpp-1.5.8.jar NativeLibrary.java -exec
+
+
 Hello World!
 ```
+执行成功之后会出现如图文件，将`jniNativeLibrary.dll`移动到`java.library.path`下，可通过`System.getProperty("java.library.path")`获取
+
+![img.png](img.png)
