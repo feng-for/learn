@@ -1,11 +1,14 @@
-package org.feng.javacpps.windows;
+package org.feng.javacpps.windows.adc;
 
-import org.bytedeco.javacpp.*;
-import org.bytedeco.javacpp.annotation.*;
+import org.bytedeco.javacpp.Loader;
+import org.bytedeco.javacpp.Pointer;
+import org.bytedeco.javacpp.annotation.Namespace;
+import org.bytedeco.javacpp.annotation.Platform;
+import org.bytedeco.javacpp.annotation.StdString;
 
-@Platform(include="NativeLibrary.h")
-@Namespace("NativeLibrary")
-public class NativeLibrary {
+@Platform(include="ModelicaFFT.h")
+@Namespace("ModelicaFFT")
+public class ModelicaFFT {
     public static class NativeClass extends Pointer {
         static { Loader.load(); }
         public NativeClass() { allocate(); }
@@ -22,7 +25,7 @@ public class NativeLibrary {
         // Pointer objects allocated in Java get deallocated once they become unreachable,
         // but C++ destructors can still be called in a timely fashion with Pointer.deallocate()
         NativeClass l = new NativeClass();
-        l.set_property("Hello World!");
+        l.set_property("Hello World!!!");
         System.out.println(l.property());
     }
 }

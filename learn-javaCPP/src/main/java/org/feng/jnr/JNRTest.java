@@ -3,8 +3,7 @@ package org.feng.jnr;
 import jnr.ffi.LibraryLoader;
 import jnr.ffi.LibraryOption;
 import jnr.ffi.Platform;
-import jnr.posix.POSIX;
-import jnr.posix.POSIXFactory;
+import org.feng.jnr.dynamic.LibC;
 
 import java.util.HashMap;
 import java.util.Map;

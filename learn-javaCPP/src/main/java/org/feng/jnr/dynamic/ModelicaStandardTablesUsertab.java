@@ -1,4 +1,4 @@
-package org.feng.jnr;
+package org.feng.jnr.dynamic;
 
 import jnr.ffi.byref.ByteByReference;
 import jnr.ffi.byref.IntByReference;

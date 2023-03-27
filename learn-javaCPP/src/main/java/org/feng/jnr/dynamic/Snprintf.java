@@ -1,4 +1,4 @@
-package org.feng.jnr;
+package org.feng.jnr.dynamic;
 
 public interface Snprintf {
 
