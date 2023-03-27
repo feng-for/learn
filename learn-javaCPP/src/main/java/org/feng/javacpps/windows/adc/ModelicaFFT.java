@@ -4,7 +4,7 @@ import org.bytedeco.javacpp.DoublePointer;
 import org.bytedeco.javacpp.Loader;
 import org.bytedeco.javacpp.annotation.Platform;
 
-@Platform(include="ModelicaFFT.h")
+@Platform(include="ModelicaFFT.c")
 public class ModelicaFFT {
 
     static { System.setProperty("org.bytedeco.javacpp.logger.debug", "true"); Loader.load(); }
