@@ -1,3 +1,4 @@
+#coding=UTF-8
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import paddlehub as hub
@@ -89,5 +90,5 @@ def id_photo(pic_path, rate=1.3, thresh=2):
     print('Hello World!!!')
 
 
-for pic in ["222.jpeg"]:
+for pic in ["/Users/wei/Documents/learn/learn/learn-python3/image/444.jpeg"]:
     id_photo(pic, rate=1.3, thresh=50)

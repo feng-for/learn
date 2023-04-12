@@ -57,8 +57,8 @@ def readimg(src_path):
   return output
 
 if __name__ == '__main__':
-  # src_path = '111.jpg'
-  src_path = '/Users/wei/Documents/个人资料/冯志伟/IMG_7732.JPG'
+  # src_path = 'image/111.jpg'
+  src_path = 'image/222.jpeg'
   background_path = '/Users/wei/Downloads/666666.jpg'
   output = readimg(src_path)
   cv2.imwrite(background_path, output)
