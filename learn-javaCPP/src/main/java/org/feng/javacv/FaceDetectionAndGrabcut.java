@@ -1,59 +1,23 @@
 package org.feng.javacv;
 
-import org.bytedeco.javacpp.Loader;
-import org.bytedeco.opencv.global.opencv_imgcodecs;
-import org.bytedeco.opencv.global.opencv_imgproc;
-import org.bytedeco.opencv.opencv_core.Mat;
-import org.bytedeco.opencv.opencv_core.Rect;
-import org.bytedeco.opencv.opencv_core.RectVector;
-import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
-
-import java.io.IOException;
+import org.python.core.PyFunction;
+import org.python.core.PyObject;
+import org.python.core.PyString;
+import org.python.util.PythonInterpreter;
 
 public class FaceDetectionAndGrabcut {
 
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        PythonInterpreter interpreter = new PythonInterpreter();
+        interpreter.execfile("learn-python3/one.py");
 
-        // Load the OpenCV library
-        Loader.load(opencv_imgproc.class);
-
-        // Load the image
-        Mat inputImage = opencv_imgcodecs.imread("/Users/wei/Documents/个人资料/冯志伟/IMG_7732.JPG");
-        // Mat inputImage = opencv_imgcodecs.imread("/Users/wei/Downloads/202132318494635807.jpg");
-
-        // Create a new Mat object for output image
-        // Mat outputImage = new Mat(inputImage.size(), opencv_core.CV_8UC3, new Scalar(255, 255, 255, 0));
-        // Mat outputImage = new Mat(inputImage.rows(), inputImage.cols(), inputImage.type(), Scalar.WHITE);
-
-        // Convert the image to grayscale
-        // Mat grayImage = new Mat();
-        // opencv_imgproc.cvtColor(inputImage, grayImage, opencv_imgproc.COLOR_BGR2GRAY);
-
-        // String classifierName;
-        // if (args.length > 0) {
-        //     classifierName = args[0];
-        // } else {
-        //     URL url = new URL("https://raw.github.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_alt.xml");
-        //     File file = Loader.cacheResource(url);
-        //     classifierName = file.getAbsolutePath();
-        // }
-
-        // Detect faces in the image
-        CascadeClassifier faceDetector = new CascadeClassifier("/Users/wei/Documents/Tools/opencv-4.6.0/data/haarcascades/haarcascade_frontalface_alt.xml");
-        RectVector faces = new RectVector();
-        faceDetector.detectMultiScale(inputImage, faces);
-
-        // Get the first detected face
-        Rect face = faces.get(0);
-
-        Mat outputImage = new Mat(inputImage, face);
-
-        // CanvasFrame canvasFrame = new CanvasFrame("show image");
-        // canvasFrame.showImage(new OpenCVFrameConverter.ToMat().convert(mask));
-        // canvasFrame.waitKey();
-
-        // Save the output image
-        opencv_imgcodecs.imwrite("/Users/wei/Downloads/output.jpg", outputImage);
+        // 第一个参数为期望获得的函数（变量）的名字，第二个参数为期望返回的对象类型
+        PyFunction pyFunction = interpreter.get("id_photo", PyFunction.class);
+        String picture = "222.jpeg";
+        //调用函数，如果函数需要参数，在Java中必须先将参数转化为对应的“Python类型”
+        PyObject pyobj = pyFunction.__call__(new PyString(picture));
+        System.out.println("the anwser is: " + pyobj);
     }
 }
 
