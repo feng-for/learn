@@ -5,6 +5,8 @@ import paddlehub as hub
 from PIL import Image
 import numpy as np
 import cv2
+import sys
+
 
 # 定义人脸识别和人物识别的paddlehub函数
 face_landmark = hub.Module(name="face_landmark_localization")
@@ -90,5 +92,5 @@ def id_photo(pic_path, rate=1.3, thresh=2):
     print('Hello World!!!')
 
 
-for pic in ["/Users/wei/Documents/learn/learn/learn-python3/image/444.jpeg"]:
-    id_photo(pic, rate=1.3, thresh=50)
+arg1 = sys.argv[1]
+id_photo(arg1, rate=1.3, thresh=50)
