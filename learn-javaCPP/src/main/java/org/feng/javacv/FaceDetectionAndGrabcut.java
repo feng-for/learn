@@ -25,6 +25,8 @@ public class FaceDetectionAndGrabcut {
             command.add("python3"); // 指定要执行的Python解释器
             command.add("learn-python3/one.py"); // 指定要执行的Python脚本路径
             command.add("/Users/wei/Documents/learn/learn/learn-python3/image/444.jpeg"); // 传递的第一个参数
+            command.add("/Users/wei/Documents/learn/learn/test.jpg"); // 传递的第二个参数
+            command.add(""); // 传递的第三个参数
 
             ProcessBuilder pb = new ProcessBuilder(command);
             Process process = pb.start();
