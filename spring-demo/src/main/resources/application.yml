@@ -8,3 +8,15 @@
 age: 18
 sex: 女
 name: 雏田
+
+# 设置内置Tomcat请求大小为20MB
+server:
+  tomcat:
+    mac-http-form-post-size: 5MB
+# 设置请求最大大小为20MB
+# 设置文件上传最大大小为20MB
+spring:
+  servlet:
+    multipart:
+      max-request-size: 5MB
+      max-file-size: 5MB

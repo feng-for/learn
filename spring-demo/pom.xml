@@ -82,11 +82,11 @@
             <version>1.2.62</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
-            <version>3.8.2</version>
-        </dependency>
+        <!-- <dependency> -->
+        <!--     <groupId>org.redisson</groupId> -->
+        <!--     <artifactId>redisson</artifactId> -->
+        <!--     <version>3.8.2</version> -->
+        <!-- </dependency> -->
 
         <dependency>
             <groupId>io.grpc</groupId>
