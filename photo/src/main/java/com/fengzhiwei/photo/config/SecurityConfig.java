@@ -19,9 +19,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST)
-                .permitAll().
-                and()
+                .requestMatchers("/photo/*")
+                .permitAll()
+                .and()
                 .formLogin()
                 .and()
                 .csrf()

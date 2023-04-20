@@ -1,12 +1,18 @@
 package com.fengzhiwei.photo.controller;
 
-import org.springframework.web.bind.annotation.*;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,50 +25,71 @@ public class PhotoController {
     @PostMapping("/upload")
     public Map<String, Object> upload(
             @RequestParam("imgFile") MultipartFile file,
-            @RequestParam("inch") Integer inch,
+            @RequestParam("inch") String inch,
             @RequestParam("color") String color
     ) {
         Map<String, Object> result = new HashMap<>();
-        Path path = Paths.get("/Users/wei/Documents/learn/temp");
         try {
-            // FilenameUtils.getExtension() 这个方法是Apache Commons IO库中的一个工具方法，可以快速、安全地获取文件的扩展名。
+
+            if (file.getSize() > 1024000) {
+                result.put("code", 2002);
+                result.put("message", "图片超过限制大小");
+                return result;
+            }
+
+            // 获取当前日期，用作保存文件夹
+            String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+            Path path = Path.of("../temp", date);
+
+            // 获取毫秒级时间用作临时图片名称
+            long tempName = Instant.now().toEpochMilli();
+            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+
             Files.createDirectories(path);
-            Path temp = Path.of(path.toString(), "666.jpg");
+            Path temp = Path.of(path.toString(), tempName + "." + extension);
             file.transferTo(new File(temp.toUri()));
 
             List<String> command = new ArrayList<>();
             command.add("python3"); // 指定要执行的Python解释器
-            command.add("photo/one.py"); // 指定要执行的Python脚本路径
+            command.add("one.py"); // 指定要执行的Python脚本路径
             command.add(temp.toString()); // 传递的第一个参数（临时图片）
-            command.add("/Users/wei/Documents/learn/temp/test.jpg"); // 传递的第二个参数（保存路径）
+            // 获取毫秒级时间用作用作证件照名称
+            long saveName = Instant.now().toEpochMilli();
+            String string = path + "/" + saveName + "." + extension;
+            command.add(string); // 传递的第二个参数（保存路径）
             command.add(color); // 传递的第三个参数（底色：默认红色）
+            command.add(inch); // 传递的第四个参数（尺寸：295,413）
 
-            callPythonGenerate(command);
-            result.put("code", 2000);
-            result.put("message", "操作成功");
-        } catch (IOException e) {
+            int called = callPythonGenerate(command);
+            if (called == 0) {
+                result.put("code", 2000);
+                result.put("message", "操作成功");
+            } else {
+                result.put("code", 2001);
+                result.put("message", "操作失败");
+            }
+        } catch (IOException | InterruptedException e) {
             // 创建文件夹失败，进行相应的处理
-            e.printStackTrace();
             result.put("code", 5000);
-            result.put("message", e.getMessage());
+            result.put("message", "操作失败");
         }
         return result;
     }
 
-    private void callPythonGenerate(List<String> command) throws IOException {
+    private int callPythonGenerate(List<String> command) throws IOException, InterruptedException {
         ProcessBuilder pb = new ProcessBuilder(command);
         Process process = pb.start();
-        try(
-                InputStream inputStream = process.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))
-        ) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+        String error;
+        while ((error = stdError.readLine()) != null) {
+            System.err.println(error);
         }
+        int exitCode = process.waitFor();
+        if (exitCode != 0) {
+            System.err.println("Python script failed with exit code " + exitCode);
+        }
+        return exitCode;
     }
 
 }

@@ -28,7 +28,7 @@ def seg_face(img):
 
 
 # 裁剪成为1寸大小的图片
-def crop_face(pic_path, rate=1.3):
+def crop_face(pic_path, width, height, rate=1.3):
     # 人脸识别
     result = face_landmark.keypoint_detection(paths=[pic_path])
     face = np.array(result[0]['data'][0], dtype=np.int64)
@@ -44,13 +44,13 @@ def crop_face(pic_path, rate=1.3):
 
     ch = int((lower + upper) / 2)
 
-    h = int(413 * w / 295)
+    h = int(height * w / width)
 
     box = (cw - rate * w, ch - rate * h, cw + rate * w, ch + rate * h)
 
     img = Image.open(pic_path)
     img = img.crop(box)
-    img = img.resize((295, 413), Image.ANTIALIAS)
+    img = img.resize((width, height), Image.ANTIALIAS)
 
     return img
 
@@ -86,9 +86,11 @@ def change_color(img, thresh=100, color=''):
 
 
 # 生成三种底色的登记照片
-def id_photo(pic_path, save_path, color, rate=1.3, thresh=2):
+def id_photo(pic_path, save_path, color, inch, rate=1.3, thresh=2):
     picture = seg_face(pic_path)
-    img = crop_face(picture, rate)
+    # 裁剪，需要添加尺寸参数
+    fields = inch.split(",")
+    img = crop_face(picture, int(fields[0]), int(fields[1]), rate)
     image = change_color(img, thresh, color)
     image.save(save_path, quality=95)
     os.remove(picture)
@@ -97,5 +99,6 @@ def id_photo(pic_path, save_path, color, rate=1.3, thresh=2):
 arg1 = sys.argv[1]
 arg2 = sys.argv[2]
 arg3 = sys.argv[3]
-id_photo(arg1, arg2, arg3, rate=1.3, thresh=50)
+arg4 = sys.argv[4]
+id_photo(arg1, arg2, arg3, arg4, rate=1.3, thresh=50)
 # id_photo('image/444.jpeg', '/Users/wei/Documents/learn/temp/test.jpg', 'red', rate=1.3, thresh=50)
