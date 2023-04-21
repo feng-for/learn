@@ -1,5 +1,7 @@
 package com.fengzhiwei.photo.controller;
 
+import com.fengzhiwei.photo.vo.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,34 +9,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/photo")
+@Slf4j
 public class PhotoController {
 
     @PostMapping("/upload")
-    public Map<String, Object> upload(
+    public Result<Void> upload(
             @RequestParam("imgFile") MultipartFile file,
             @RequestParam("inch") String inch,
             @RequestParam("color") String color
     ) {
-        Map<String, Object> result = new HashMap<>();
+        Result<Void> result;
         try {
-
-            if (file.getSize() > 1024000) {
-                result.put("code", 2002);
-                result.put("message", "图片超过限制大小");
-                return result;
+            if (file.getSize() > 1048576) {
+                return Result.OK(2002, "图片超过限制大小");
             }
 
             // 获取当前日期，用作保存文件夹
@@ -62,16 +63,14 @@ public class PhotoController {
 
             int called = callPythonGenerate(command);
             if (called == 0) {
-                result.put("code", 2000);
-                result.put("message", "操作成功");
+                log.info("操作成功");
+                result = Result.OK(2000, "操作成功");
             } else {
-                result.put("code", 2001);
-                result.put("message", "操作失败");
+                result = Result.error(2001, "操作失败");
             }
         } catch (IOException | InterruptedException e) {
             // 创建文件夹失败，进行相应的处理
-            result.put("code", 5000);
-            result.put("message", "操作失败");
+            result = Result.error(5000, "系统异常");
         }
         return result;
     }
@@ -83,11 +82,11 @@ public class PhotoController {
         BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
         String error;
         while ((error = stdError.readLine()) != null) {
-            System.err.println(error);
+            log.error(error);
         }
         int exitCode = process.waitFor();
         if (exitCode != 0) {
-            System.err.println("Python script failed with exit code " + exitCode);
+            log.error("Python script failed with exit code {}", exitCode);
         }
         return exitCode;
     }
