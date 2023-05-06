@@ -1,0 +1,75 @@
+<!--logs.wxml-->
+<view class="demo">
+  <view class="demo-title">
+    <t-image src="/pages/image/zhaopian.png" class=".title-right-pad" width="32" height="30"/>{{title}}
+  </view>
+  <view class="demo-desc">
+    <icon class="icon-box-img right-pad" type="success" size="15"></icon>支持电子版保存
+    <icon class="icon-box-img left-pad right-pad" type="warn" color="#C9C9C9" size="15"></icon>不支持冲印邮寄
+  </view>
+  <view class="demo-bold same-line">
+    <view class="left1-half">{{pxSize}}</view>
+    <view class="middle1-half">{{printInch}}</view>
+    <view class="right1-half"> 300DPI</view>
+  </view>
+  <view class="demo-desc same-line">
+    <view class="left1-half">像素大小</view>
+    <view class="middle1-half">冲印尺寸</view>
+    <view class="right1-half">分辨率</view>
+  </view>
+  <view class="demo-round">
+    <view class="demo-desc same-line">
+      <view class="left-half">背景颜色</view>
+      <view class="right-half">
+        <icon class="icon-box-img right-pad" color="red" type="success" size="15"></icon>
+        <icon class="icon-box-img right-pad" color="blue" type="success" size="15"></icon>
+        <icon class="icon-box-img right-pad" color="white" type="success" size="15"></icon>
+      </view>
+    </view>
+    <view class="demo-desc same-line">
+      <view class="left-half">文件大小</view>
+      <view class="right-half">{{imgSize}}</view>
+    </view>
+    <view class="demo-desc same-line">
+      <view class="left-half">其他要求</view>
+      <view class="right-half">请勿上传带水印照片和预览截图</view>
+    </view>
+  </view>
+  <view>
+    <view class="demo-title">
+      <t-image src="/pages/image/xiangji.png" class=".title-right-pad" width="32" height="30"/>拍照指南
+    </view>
+    <view>
+      <t-swiper
+        current="{{current}}"
+        autoplay="{{autoplay}}"
+        duration="{{duration}}"
+        interval="{{interval}}"
+        navigation="{{navigation}}"
+        list="{{swiperList}}"
+        loop="{{false}}"
+      ></t-swiper>
+    </view>
+  </view>
+  <view class="same-line" style="margin-top: 100rpx;">
+      <button bindtap="onChooseImage" style="border-radius: 25px;">相册导入</button>
+      <button bindtap="onChooseCamera" style="border-radius: 25px;">直接拍照</button>
+  </view>
+  <t-popup visible="{{loading}}" close-on-overlay-click="false" bind:visible-change="onVisibleChange" placement="center">
+    <view class="block">
+        <t-loading theme="circular" size="64rpx" text="证件照制作中..." layout="vertical" class=".close-btn" />
+    </view>
+  </t-popup>
+  <t-dialog
+    visible="{{visible}}"
+    title="消息提醒"
+    content="{{message}}"
+    confirm-btn="{{ confirmBtn }}"
+    bind:confirm="closeDialog"
+    />
+  <t-popup visible="{{generate}}" close-on-overlay-click="false" bind:visible-change="onVisibleChange" placement="center">
+    <view class="block">
+        <t-loading theme="circular" size="64rpx" text="制作成功下载中..." layout="vertical" class=".close-btn" />
+    </view>
+  </t-popup>
+</view>

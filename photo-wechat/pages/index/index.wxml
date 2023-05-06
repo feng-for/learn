@@ -1,0 +1,26 @@
+<t-swiper
+  current="{{current}}"
+  autoplay="{{autoplay}}"
+  duration="{{duration}}"
+  interval="{{interval}}"
+  navigation="{{navigation}}"
+  list="{{swiperList}}"
+  loop="{{false}}"
+>
+</t-swiper>
+<t-tabs defaultValue="{{1}}" theme="card" space-evenly="{{false}}" bind:change="onTabsChange">
+  <t-tab-panel wx:for="{{tabs}}" wx:key="index" icon="{{item.icon}}" label="{{item.label}}" value="{{item.value}}" />
+</t-tabs>
+<t-cell
+  wx:for="{{cells}}"
+  wx:key="index"
+  title="{{item.title}}"
+  description="{{item.description}}"
+  image="{{item.image}}"
+  hover
+  bordered="{{false}}"
+  arrow
+  bind:click="onCellClick"
+  data-title="{{item.title}}"
+  data-description="{{item.description}}"
+/>
