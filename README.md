@@ -7,3 +7,9 @@
 * 参考文档和教程：可以查阅官方文档、博客、视频教程等来学习Java和Spring的知识。也可以参考一些优秀的书籍，如《Spring实战》、《Effective Java》等。
 * 参与社区和论坛：加入Java和Spring社区和论坛，与其他开发者交流，获取经验和技巧。
 总之，学好Java和Spring需要长期的学习和实践，不断探索和提高自己的技能。
+# 制作证件照小程序截图
+![1.png](learn-python3%2Fimage%2F1.png)
+![2.png](learn-python3%2Fimage%2F2.png)
+![3.png](learn-python3%2Fimage%2F3.png)
+![4.png](learn-python3%2Fimage%2F4.png)
+![IMG_7732.JPG](learn-python3%2Fimage%2FIMG_7732.JPG)
