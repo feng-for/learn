@@ -1,8 +1,8 @@
-const imageCdn = '/pages/image';
+const url = 'http://feng.freehk.svipss.top'
 const swiperList = [
-  `${imageCdn}/IMG_8205.PNG`,
-  `${imageCdn}/IMG_8204.PNG`,
-  `${imageCdn}/IMG_8206.PNG`
+  `${url}/image/IMG_8205.PNG`,
+  `${url}/image/IMG_8204.PNG`,
+  `${url}/image/IMG_8206.PNG`
 ];
 
 Component({
@@ -73,7 +73,7 @@ Component({
         wx.uploadFile({
             filePath: tempFilePath,
             name: 'imgFile',
-            url: 'http://localhost:8080/photo/verify',
+            url: `${url}/photo/verify`,
             success(res) {
               let data = JSON.parse(res.data)
               if(data.code === 2000){
@@ -100,7 +100,7 @@ Component({
     onGeneratePhoto(tempFilePath, savePath, inch, color){
         let _this = this
         wx.request({
-            url: `http://localhost:8080/photo/upload?temp=${tempFilePath}&savePath=${savePath}&inch=${inch}&color=${color}`,
+            url: `${url}/photo/upload?temp=${tempFilePath}&savePath=${savePath}&inch=${inch}&color=${color}`,
             method: 'POST',
             success (res) {
                 _this.onLoading()
@@ -124,6 +124,8 @@ Component({
           })
     },
     onDownloadFile(savePath) {
+      console.log('证件照保存路径')
+      console.log(saveP)
         let _this = this
         wx.downloadFile({
             url: 'https://img1.baidu.com/it/u=413643897,2296924942&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500', //仅为示例，并非真实的资源
