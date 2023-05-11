@@ -10,7 +10,7 @@ const swiperList = [
 
 Component({
   data: {
-    current: 3,
+    current: 6,
     autoplay: true,
     duration: 500,
     interval: 5000,
