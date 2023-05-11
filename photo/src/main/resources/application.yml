@@ -1,11 +1,11 @@
 # 设置内置Tomcat请求大小为20MB
 server:
   tomcat:
-    mac-http-form-post-size: 1MB
+    mac-http-form-post-size: 3MB
 # 设置请求最大大小为20MB
 # 设置文件上传最大大小为20MB
 spring:
   servlet:
     multipart:
-      max-request-size: 1MB
-      max-file-size: 1MB
+      max-request-size: 3MB
+      max-file-size: 3MB

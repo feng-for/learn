@@ -30,7 +30,7 @@ public class PhotoController {
 
     @PostMapping("/verify")
     public Result<Map<String, Object>> verify(@RequestParam("imgFile") MultipartFile file) {
-        if (file.getSize() > 1048576) {
+        if (file.getSize() > 3145728) {
             return Result.OK(2002, "图片超过限制大小");
         }
 
