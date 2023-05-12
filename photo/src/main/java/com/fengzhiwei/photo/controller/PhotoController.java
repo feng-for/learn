@@ -37,7 +37,7 @@ public class PhotoController {
         try {
             // 获取当前日期，用作保存文件夹
             String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-            Path path = Path.of("../temp", date);
+            Path path = Path.of("../images/temp", date);
 
             // 获取毫秒级时间用作临时图片名称
             long tempName = Instant.now().toEpochMilli();
@@ -64,6 +64,7 @@ public class PhotoController {
                 return Result.error(4003, "图像验证失败，未检测到人脸");
             }
         } catch (Exception e) {
+            log.error("verify ----- {}", e.getMessage());
             return Result.error(5000, "系统异常，联系开发人员");
         }
     }
@@ -91,6 +92,7 @@ public class PhotoController {
                 return Result.error(2001, "操作失败");
             }
         } catch (IOException | InterruptedException e) {
+            log.error("verify ----- {}", e.getMessage());
             // 创建文件夹失败，进行相应的处理
             return Result.error(5000, "系统异常，联系开发人员");
         }

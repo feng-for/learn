@@ -1,8 +1,8 @@
-const url = 'http://feng.freehk.svipss.top'
+const url = 'http://124.222.120.41'
 const swiperList = [
-  `${url}/image/IMG_8205.PNG`,
-  `${url}/image/IMG_8204.PNG`,
-  `${url}/image/IMG_8206.PNG`
+  `${url}/images/detail/IMG_8205.PNG`,
+  `${url}/images/detail/IMG_8204.PNG`,
+  `${url}/images/detail/IMG_8206.PNG`
 ];
 
 Component({
@@ -128,11 +128,12 @@ Component({
           })
     },
     onDownloadFile(savePath) {
-      console.log('证件照保存路径')
-      console.log(savePath)
+        console.log('证件照保存路径')
+        console.log(savePath)
+        let path = savePath.replace('..', '')
         let _this = this
         wx.downloadFile({
-            url: `${url}/temp/IMG_8191.JPG`, //仅为示例，并非真实的资源
+            url: `${url}${path}`, //仅为示例，并非真实的资源
             success (res) {
               // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
               if(res.statusCode === 200) {

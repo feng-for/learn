@@ -1,11 +1,11 @@
-const url = 'http://feng.freehk.svipss.top'
+const url = 'http://124.222.120.41'
 const swiperList = [
-  `${url}/image/IMG_8196.JPG`,
-  `${url}/image/IMG_8195.JPG`,
-  `${url}/image/IMG_8194.JPG`,
-  `${url}/image/IMG_8193.JPG`,
-  `${url}/image/IMG_8192.JPG`,
-  `${url}/image/IMG_8191.JPG`
+  `${url}/images/index/IMG_8196.JPG`,
+  `${url}/images/index/IMG_8195.JPG`,
+  `${url}/images/index/IMG_8194.JPG`,
+  `${url}/images/index/IMG_8193.JPG`,
+  `${url}/images/index/IMG_8192.JPG`,
+  `${url}/images/index/IMG_8197.JPG`
 ];
 
 Component({

@@ -1,5 +1,6 @@
 # 设置内置Tomcat请求大小为20MB
 server:
+  port: 8080
   tomcat:
     mac-http-form-post-size: 3MB
 # 设置请求最大大小为20MB
