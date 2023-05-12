@@ -23,6 +23,8 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers("/image/**")
                 .permitAll()
+                .requestMatchers("/temp/**")
+                .permitAll()
                 .requestMatchers("/photo/*")
                 .permitAll()
                 .and()

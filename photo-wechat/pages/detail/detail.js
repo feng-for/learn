@@ -55,13 +55,17 @@ Component({
       })
     },
     onChooseCamera(event) {
+      let _this = this
       wx.chooseMedia({
         count: 1,
         mediaType: ['image'],
         sourceType: ['camera'],
         camera: 'back',
         success(res) {
-            console.log(res)
+          console.log(res)
+          let tempFile = res.tempFiles[0]
+          _this.onLoading()
+          _this.onVerifyFace(tempFile.tempFilePath)
         },
         fail(res) {
 
@@ -125,10 +129,10 @@ Component({
     },
     onDownloadFile(savePath) {
       console.log('证件照保存路径')
-      console.log(saveP)
+      console.log(savePath)
         let _this = this
         wx.downloadFile({
-            url: 'https://img1.baidu.com/it/u=413643897,2296924942&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500', //仅为示例，并非真实的资源
+            url: `${url}/temp/IMG_8191.JPG`, //仅为示例，并非真实的资源
             success (res) {
               // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
               if(res.statusCode === 200) {

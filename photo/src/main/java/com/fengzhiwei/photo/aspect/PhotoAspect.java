@@ -18,7 +18,7 @@ public class PhotoAspect {
 
     private static final RateLimiter rateLimiter = RateLimiter.create(15.0);
 
-    @Around("execution(public * com.fengzhiwei.photo.controller.PhotoController.upload(..))")
+    @Around("execution(public * com.fengzhiwei.photo.controller.PhotoController.*(..))")
     public Object aroundDoSomething(ProceedingJoinPoint joinPoint) throws Throwable {
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
