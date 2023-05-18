@@ -28,27 +28,36 @@ def seg_face(img):
 
 
 # 裁剪成为1寸大小的图片
-def crop_face(pic_path, width, height, rate=1.3):
+def crop_face(pic_path, width, height, rate):
     # 人脸识别
     result = face_landmark.keypoint_detection(paths=[pic_path])
     face = np.array(result[0]['data'][0], dtype=np.int64)
-
     # 剪裁
     left = face[:, 0].min()
     right = face[:, 0].max()
     w = right - left
-    cw = int((right + left) / 2)
-
+    cw = int(left + w / 2)
+    
     upper = face[:, 1].min()
     lower = face[:, 1].max()
-
-    ch = int((lower + upper) / 2)
-
+    h = lower - upper
+    ch = int(upper + h / 2)
     h = int(height * w / width)
-
-    box = (cw - rate * w, ch - rate * h, cw + rate * w, ch + rate * h)
-
+    # 原始照片的大小
     img = Image.open(pic_path)
+    imgW, imgH = img.size
+    if imgW <= width and imgH <= height:
+        box = (0, 0, imgW, imgH)
+    elif imgW > width and imgH > height:
+        box = (cw - rate * w, ch - rate * h, cw + rate * w, ch + rate * h)
+    elif imgW > width and imgH <= height:
+        box = (cw - rate * w, 0, cw + rate * w, imgW)
+    elif imgW <= width and imgH > height:
+        box = (0, ch - rate * h, imgW, ch + rate * h)
+    
+    # 输出原始照片大小和制作尺寸
+    print(f'imgW: {imgW}, imgH: {imgH}, width: {width}, height: {height}')
+
     img = img.crop(box)
     img = img.resize((width, height), Image.ANTIALIAS)
 
@@ -56,7 +65,7 @@ def crop_face(pic_path, width, height, rate=1.3):
 
 
 # 改变颜色
-def change_color(img, thresh=100, color=''):
+def change_color(img, thresh, color=''):
     def cut_person(images, num):
         images = np.array(images).transpose((2, 0, 1))
         person = []
@@ -86,7 +95,7 @@ def change_color(img, thresh=100, color=''):
 
 
 # 生成三种底色的登记照片
-def id_photo(pic_path, save_path, color, inch, rate=1.3, thresh=2):
+def id_photo(pic_path, save_path, color, inch, rate, thresh):
     picture = seg_face(pic_path)
     # 裁剪，需要添加尺寸参数
     fields = inch.split(",")
@@ -101,4 +110,4 @@ arg2 = sys.argv[2]
 arg3 = sys.argv[3]
 arg4 = sys.argv[4]
 id_photo(arg1, arg2, arg3, arg4, rate=1.3, thresh=50)
-# id_photo('image/444.jpeg', '/Users/wei/Documents/learn/temp/test.jpg', 'red', rate=1.3, thresh=50)
+# id_photo('C:\\Users\\Fengzhiwei\\D\\444.jpeg', 'C:\\Users\\Fengzhiwei\\D\\test.jpg', '', '295,413', rate=1.3, thresh=50)
