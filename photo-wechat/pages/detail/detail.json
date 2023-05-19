@@ -3,7 +3,6 @@
   "usingComponents": {
     "t-image": "tdesign-miniprogram/image/image",
     "t-swiper": "tdesign-miniprogram/swiper/swiper",
-    "t-tab-bar": "tdesign-miniprogram/tab-bar/tab-bar",
     "t-loading": "tdesign-miniprogram/loading/loading",
     "t-popup": "tdesign-miniprogram/popup/popup",
     "t-dialog": "tdesign-miniprogram/dialog/dialog"

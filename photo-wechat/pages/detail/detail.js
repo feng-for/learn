@@ -1,4 +1,4 @@
-const url = 'http://124.222.120.41'
+const url = 'https://www.feng.email'
 const swiperList = [
   `${url}/images/detail/IMG_8205.PNG`,
   `${url}/images/detail/IMG_8204.PNG`,

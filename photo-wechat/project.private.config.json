@@ -3,6 +3,6 @@
   "projectname": "photo-wechat",
   "setting": {
     "compileHotReLoad": true,
-    "urlCheck": false
+    "urlCheck": true
   }
 }
