@@ -18,7 +18,8 @@
   description="{{item.description}}"
   image="{{item.image}}"
   hover
-  bordered="{{false}}"
+  bordered="{{true}}"
+  theme="card"
   arrow
   bind:click="onCellClick"
   data-title="{{item.title}}"

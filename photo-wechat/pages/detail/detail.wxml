@@ -49,6 +49,7 @@
         navigation="{{navigation}}"
         list="{{swiperList}}"
         loop="{{false}}"
+        height="210"
       ></t-swiper>
     </view>
   </view>
