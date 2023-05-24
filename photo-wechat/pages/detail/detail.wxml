@@ -6,6 +6,7 @@
   <view class="demo-desc">
     <icon class="icon-box-img right-pad" type="success" size="15"></icon>支持电子版保存
     <icon class="icon-box-img left-pad right-pad" type="warn" color="#C9C9C9" size="15"></icon>不支持冲印邮寄
+    <view class="demo-warn">注：小程序为个人学习开发，制作结果未经测试</view>
   </view>
   <view class="demo-bold same-line">
     <view class="left1-half">{{pxSize}}</view>
@@ -48,6 +49,7 @@
         navigation="{{navigation}}"
         list="{{swiperList}}"
         loop="{{false}}"
+        height="210"
       ></t-swiper>
     </view>
   </view>

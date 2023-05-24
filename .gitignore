@@ -30,4 +30,5 @@ hs_err_pid*
 output.avi
 **/target/**
 temp/**
-log/**
+logs/**
+images/**

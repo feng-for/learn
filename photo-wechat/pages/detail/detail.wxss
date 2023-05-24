@@ -81,3 +81,9 @@
   left: 30%;
   bottom: 35%;
 }
+
+.demo-warn {
+  font-size: smaller;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+}

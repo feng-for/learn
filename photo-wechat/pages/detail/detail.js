@@ -1,4 +1,5 @@
-const url = 'http://124.222.120.41'
+const url = 'https://www.feng.email'
+// const url = 'http://localhost:8080'
 const swiperList = [
   `${url}/images/detail/IMG_8205.PNG`,
   `${url}/images/detail/IMG_8204.PNG`,
@@ -48,14 +49,16 @@ Component({
           let tempFile = res.tempFiles[0]
           _this.onLoading()
           _this.onVerifyFace(tempFile.tempFilePath)
+          // _this.onGenerateImage(tempFile.tempFilePath)
         },
         fail(res) {
-          
+          _this.failLog(res)
         }
       })
     },
     onChooseCamera(event) {
       let _this = this
+      // 打开相机
       wx.chooseMedia({
         count: 1,
         mediaType: ['image'],
@@ -65,13 +68,39 @@ Component({
           console.log(res)
           let tempFile = res.tempFiles[0]
           _this.onLoading()
-          _this.onVerifyFace(tempFile.tempFilePath)
+          // _this.onVerifyFace(tempFile.tempFilePath)
+          _this.onGenerateImage(tempFile.tempFilePath)
         },
         fail(res) {
-
+          _this.failLog(res)
         }
       })
     },
+    onGenerateImage(tempFilePath) {
+      let _this = this
+      let inch = _this.data.printInch.replace('px', '').replace('x', ',')
+      wx.uploadFile({
+          filePath: tempFilePath,
+          formData: {"inch": inch, "color": "red"},
+          name: 'imgFile',
+          url: `${url}/photo/generate`,
+          success(res) {
+            _this.onLoading()
+            let data = JSON.parse(res.data)
+            if(data.code === 2000){
+                _this.onDownloadFile(data.result.savePath)
+            } else {
+                _this.setData({
+                    visible: true,
+                    message: data.message
+                })
+            }
+          },
+          fail(res) {
+            _this.failLog(res)
+          }
+        })
+  },
     onVerifyFace(tempFilePath) {
         let _this = this
         wx.uploadFile({
@@ -79,25 +108,25 @@ Component({
             name: 'imgFile',
             url: `${url}/photo/verify`,
             success(res) {
-              let data = JSON.parse(res.data)
-              if(data.code === 2000){
-                  let result = data.result
-                  _this.onGeneratePhoto(result.temp, result.savePath, '295,413', 'red')
-              } else{
-                _this.onLoading()
-                _this.setData({
+                let data = JSON.parse(res.data)
+                if(data.code === 2000){
+                  _this.onLoading()
+                  _this.setData({
                     visible: true,
-                    message: data.message
+                    message: "服务器 CPU 使用率过高，无法完成人像分析"
                 })
-              }
+                  // let result = data.result
+                  // _this.onGeneratePhoto(result.temp, result.savePath, _this.data.printInch, 'red')
+                } else{
+                  _this.onLoading()
+                  _this.setData({
+                      visible: true,
+                      message: data.message
+                  })
+                }
             },
             fail(res) {
-                console.error(res)
-                _this.onLoading()
-                _this.setData({
-                    visible: true,
-                    message: res
-                })
+              _this.failLog(res)
             }
           })
     },
@@ -118,18 +147,11 @@ Component({
                 }
             },
             fail(res) {
-                console.error(res)
-                _this.onLoading()
-                _this.setData({
-                    visible: true,
-                    message: res
-                })
+              _this.failLog(res)
             }
           })
     },
     onDownloadFile(savePath) {
-        console.log('证件照保存路径')
-        console.log(savePath)
         let path = savePath.replace('..', '')
         let _this = this
         wx.downloadFile({
@@ -154,31 +176,10 @@ Component({
               }
             },
             fail(res) {
-                console.error(res)
+              _this.failLog(res)
             }
           })
     },
-    // onUploadFile(tempFilePath, savePath, inch, color){
-    //   let _this = this
-    //   wx.uploadFile({
-    //     filePath: tempFilePath,
-    //     name: 'imgFile',
-    //     url: 'http://localhost:8080/photo/upload',
-    //     formData: {
-    //       'inch': inch,
-    //       'color': color,
-    //       'savePath': savePath
-    //     },
-    //     success(res) {
-    //       console.log(res)
-    //       _this.onLoading()
-    //     },
-    //     fail(res) {
-    //       console.error(res)
-    //       _this.onLoading()
-    //     }
-    //   })
-    // },
     onLoading() {
       this.setData({
         loading: !this.data.loading
@@ -194,6 +195,14 @@ Component({
     },
     closeDialog() {
         this.setData({ visible: false });
+    },
+    failLog(res){
+      console.error(res)
+      this.onLoading()
+      this.setData({
+          visible: true,
+          message: res.errMsg
+      })
     }
   }
 });
