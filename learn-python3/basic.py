@@ -1,6 +1,6 @@
 # list
 list1 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
-# tuple
+# tuple 注意：元组中只有一个元素时，需要在后面加逗号
 tuple1 = ('a', 'b', 'c', 'd', 'e')
 # set
 set1 = {'a', 'b', 'c', 'd', 'e'}
@@ -225,3 +225,97 @@ x.__foo()      # 报错
 # __truediv__: 除运算
 # __mod__: 求余运算
 # __pow__: 乘方
+
+
+# 数学运算
+import math
+
+print(math.ceil(4.1)) #向上取整
+print(math.floor(4.9)) #向下取整
+print(math.fabs(-10)) #绝对值
+print(math.sqrt(9.0)) #平方根
+print(math.exp(2)) #e的x次幂
+
+
+# 随机数
+import random
+
+ran = random.random() #随机生成一个[0,1)范围内的实数
+print(ran)
+ran1 = random.randint(1, 10) #随机生成一个[1,10)范围内的整数
+print(ran1)
+ran2 = random.randrange(1, 20, 2)
+print(ran2)
+# 当使用random.seed(x) 设定好种子之后，random() 生成的随机数将会是同一个。
+print('seed设置种子...')
+random.seed(10)
+print(f'Random number with seed 10: {random.random()}')
+random.seed(10)
+print(f'生成同一个随机数: {random.random()}')
+print(f'重新生成随机数: {random.random()}')
+
+
+# 字符串（String）
+#   Python中的字符串可以使用单引号、双引号和三引号（三个单引号或三个双引号）括起来，使用反斜杠\转义特殊字符
+print('Hello WOrld')
+print("Hello World")
+print("I'm Feng")
+print('I\'m feng')
+print('''
+I'm feng
+<html>
+</html>
+''')
+# 字符串连接
+# 使用+运算符
+str1 = 'Hello'
+str2 = 'World'
+print(str1 + str2)
+newStr = '_'.join('hello')
+print(newStr)
+
+
+# 列表（List）
+#   查询names列表中有没有值为’superman’的元素
+names = ['superman', 'a', 'b']
+for name in names:
+    if name == 'superman':
+        print(name)
+        break
+    else:
+        print('no')
+
+if 'superman' in names:
+    print('Superman')
+else:
+    print('no')
+
+# extend()：合并列表
+models = ['雏田', '刘亦菲']
+names.extend(models)
+print(names)
+
+# 修改指定元素
+for i in range(len(names)):
+    if '雏田' == names[i]:
+        names[i] = '日向雏田'
+        break
+print(names)
+
+
+# JSON序列化与反序列化
+#   JSON序列化：json.dumps用于将Python 对象编码成JSON 字符
+import json
+data = [{'a': 1, 'e': 2, 'c': 3, 'd': 4}]
+j = json.dumps(data, indent=4, separators=(',', ': '))
+print(j)
+#   JSON反序列化：json.loads用于解码JSON 数据。该函数返回Python 字段的数据类型
+jsonData = '{"a": 1, "e": 2, "c": 3, "d": 4}'
+print(json.loads(jsonData))
+
+
+# 数据集获取
+# Ø爬虫的过程，就是模仿浏览器的行为，往目标站点发送请求，接收服务器的响应数据，提取需要的信息，并进行保存的过程。
+# ◆爬虫ØPython为爬虫的实现提供了工具：
+# request模块：requests是python实现的简单易用的HTTP库，官网地址：http://cn.python-requests.org/zh_CN/latest/
+# BeautifulSoup库：Beautiful Soup 是一个可以从HTML或XML文件中提取数据的Python库。网址：https://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/
