@@ -6,7 +6,7 @@ from PIL import Image
 import numpy as np
 import cv2
 import sys
-import os
+import shutil
 
 
 # 定义人脸识别和人物识别的paddlehub函数
@@ -102,7 +102,7 @@ def id_photo(pic_path, save_path, color, inch, rate, thresh):
     img = crop_face(picture, int(fields[0]), int(fields[1]), rate)
     image = change_color(img, thresh, color)
     image.save(save_path, quality=95)
-    os.remove(picture)
+    shutil.rmtree(picture.split('/')[0])
 
 
 arg1 = sys.argv[1]
