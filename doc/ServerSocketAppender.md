@@ -22,7 +22,7 @@ java chapters.appenders.socket.SocketClient1localhost6000
 
 与SocketClient1不同，示例应用程序SocketClient2不会自行配置回传。它需要 XML 格式的配置文件。下面显示的配置文件* client1.xml *创建一个SocketAppender并将其附加到根 Logger。
 
-```mermaid xml
+``` xml
 <configuration>
 	  
   <appender name="SOCKET" class="ch.qos.logback.classic.net.SocketAppender">
