@@ -4,7 +4,7 @@ import org.openqa.selenium.edge.EdgeDriver
 import java.io.FileOutputStream
 import java.net.URI
 
-fun main(args: Array<String>) {
+fun main() {
     // println("Hello World!")
 
     // Try adding program arguments via Run/Debug configuration.
@@ -15,8 +15,9 @@ fun main(args: Array<String>) {
     val edgeDriver = EdgeDriver()
     // 目录页面URL
     // val url = "https://www.kandzww.com/book/71457/"
-    val url = "https://quanben-xiaoshuo.com"
-    val uri = "/n/feishengshiwannian/xiaoshuo.html"
+    // val url = "https://quanben-xiaoshuo.com"
+    val url = "https://m.bqg9527.net"
+    val uri = "/book/220073"
     // 打开浏览器，目录页面
     edgeDriver.get("$url$uri")
     // 点击完整列表按钮
@@ -26,9 +27,9 @@ fun main(args: Array<String>) {
     // 使用Jsoup解析HTML页面
     val document: Document? = Jsoup.parse(pageSource)
     // 解析xpath，获取章节节点
-    val elements = document?.selectXpath("//div[@class='content']/ul/li/a")
+    val elements = document?.selectXpath("//div[@class='cover']/ul[@class='chapter']/li/a")
     elements?.let {e ->
-        FileOutputStream("fzuguiwjnm.txt").bufferedWriter().use { bf ->
+        FileOutputStream("1000.txt").bufferedWriter().use { bf ->
             e.forEach {
                 val href = it.attr("href")
                 val parse: Document? = Jsoup.parse(URI.create("$url$href").toURL(), 1000 * 5)
@@ -36,7 +37,7 @@ fun main(args: Array<String>) {
                     val title = p.title()
                     println("正在下载\t$title\n")
                     bf.write(title)
-                    val content = p.selectXpath("//div[@id='articlebody']")
+                    val content = p.selectXpath("//div[@id='nr1']")
                     content.eachText().forEach { s -> bf.write("$s\n") }
                 }
             }
